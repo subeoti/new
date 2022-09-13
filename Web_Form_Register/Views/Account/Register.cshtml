@@ -1,0 +1,132 @@
+﻿
+@{
+    Layout = null;
+}
+@model Web_Form_Register.Models.RegisterModels
+@using Web_Form_Register.DataContext.Entity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="container body-content">
+        <div class="card" style="margin-bottom:0;">
+            <div class="card-body" style="padding:0;">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4" style="">
+                        <hr>
+                        <div class="form-row" style="text-align: center">
+                            <h3 style="font-weight:500; font-size:40px; font-family:initial;"> Sign Up</h3>
+                        </div>
+                        <div class="form-group" style="margin-top:25px;">
+                            <div class="col-xs-12">
+                                <label style="font-size:13px;"><span style="background: #2eb85c; padding: 5px 8px; border-radius: 100%; color: #fff">1</span>&nbsp; Your basic infor</label>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal form-material needs-validation", @enctype = "multipart/form-data" }))
+                        {
+                            <div class="form-group" style="margin-top:25px;">
+                                <div class="col-xs-12">
+                                    <label style="opacity:0.4;font-size:13px;">Name*</label> <br />
+                                    @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = "Name", @autocomplete = "off", @style = "width: 100%" })
+                                    @Html.ValidationMessageFor(model => model.FullName, null, new { @id = "email", @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:25px;">
+                                <div class="col-xs-12">
+                                    <label style="opacity:0.4;font-size:13px;">Email*</label> <br />
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", @autocomplete = "off", @style = "width: 100%" })
+                                    @Html.ValidationMessageFor(model => model.Email, null, new { @id = "email", @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:5px;">
+                                <div class="col-xs-12">
+                                    <label style="opacity:0.4;font-size:13px;">Password*</label> <br />
+                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "************", @autocomplete = "off", @style = "width: 100%" })
+                                    @Html.ValidationMessageFor(model => model.Password, null, new { @id = "password", @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="opacity: 0.4; font-size: 13px; padding-left: 1rem">Age</label> <br />
+                                    <div class="d-flex no-block align-items-center" style="width:95%">
+                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem">
+                                            <input type="radio" class="custom-control-input" id="Under13" name="@Model.Age" value="@CommonEnum.AgeType.Under13" />
+                                            <label class="custom-control-label" for="Under13" style="font-size:11px; line-height:21px;">Uder 13</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex no-block align-items-center" style="width:95%">
+                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem">
+                                            <input type="radio" class="custom-control-input" id="OrOlder" name="@Model.Age" value="@CommonEnum.AgeType.OrOlder" />
+                                            <label class="custom-control-label" for="OrOlder" style="font-size:11px; line-height:21px;">13 or older</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:25px;">
+                                <div class="col-xs-12">
+                                    <label style="font-size:13px;"><span style="background: #2eb85c; padding: 5px 8px; border-radius: 100%; color: #fff">2</span>&nbsp; Your profile</label>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:25px;">
+                                <div class="col-xs-12">
+                                    <label style="opacity:0.4;font-size:13px;">Biography</label> <br />
+                                    @Html.TextAreaFor(model => model.Biography, new { @class = "form-control", placeholder = "Biography", @autocomplete = "off", @style = "width: 100%" })
+                                    @Html.ValidationMessageFor(model => model.Biography, null, new { @id = "email", @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top:25px;">
+                                <div class="col-xs-12">
+                                    <label style="opacity:0.4;font-size:13px;">Job Role</label> <br />
+                                    <select name="Job" class="form-select form-select-lg mb-3" style="width: 100%">
+                                        <option value="1">Front-End Developer</option>
+                                        <option value="2">back-End Developer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="opacity: 0.4; font-size: 13px; padding-left: 1rem">Interests</label> <br />
+                                    <div class="d-flex no-block align-items-center" style="width:95%">
+                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem">
+                                            @Html.CheckBoxFor(model =>model.Development, new { @class= "custom-control-input" })
+                                            <label class="custom-control-label" for="Development" style="font-size:11px; line-height:21px;">Development</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem">
+                                            @Html.CheckBoxFor(model => model.Design, new { @class = "custom-control-input" })
+                                            <label class="custom-control-label" for="Design" style="font-size:11px; line-height:21px;">Design</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem">
+                                            @Html.CheckBoxFor(model => model.Business, new { @class = "custom-control-input" })
+                                            <label class="custom-control-label" for="Business" style="font-size:11px; line-height:21px;">Business</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group text-center">
+                                <div class="col-xs-12 p-b-20">
+                                    <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit" style="width: 100%; background: #2eb85c; border-color: #000;">Sign Up</button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>
+
+</body>
+</html>
